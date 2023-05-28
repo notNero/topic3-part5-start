@@ -72,6 +72,7 @@ fun HomeScreen(viewModel: MainViewModel) {
             Timer().schedule(3000) { isToastVisible = false }
         }
     }
+    val homeScreenItems = mapHomeScreenItems(posts)
     Box(modifier = Modifier.fillMaxSize()) {
         LazyColumn(
             modifier = Modifier.background(
@@ -97,6 +98,26 @@ fun HomeScreen(viewModel: MainViewModel) {
         }
     }
 }
+
+private fun mapHomeScreenItems(
+    posts: List<PostModel>
+): List<HomeScreenItem> {
+    val homeScreenItems = mutableListOf<HomeScreenItem>()
+
+    // Add Trending item
+    homeScreenItems.add(
+        HomeScreenItem(HomeScreenItemType.TRENDING)
+    )
+
+    // Add Post items
+    posts.forEach { post ->
+        homeScreenItems.add(
+            HomeScreenItem(HomeScreenItemType.POST, post)
+        )
+    }
+    return homeScreenItems
+}
+
 
 @Composable
 private fun TrendingTopic(trendingTopic: TrendingTopicModel){
