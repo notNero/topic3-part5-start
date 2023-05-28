@@ -159,6 +159,12 @@ private fun TrendingTopics(
     }
 }
 
+@Preview
+@Composable
+private fun TrendingTopicsPreview(){
+    TrendingTopics(trendingTopics = trendingItems)
+}
+
 @Preview(showBackground = true)
 @Composable
 private fun TrendingTopicPreview(){
