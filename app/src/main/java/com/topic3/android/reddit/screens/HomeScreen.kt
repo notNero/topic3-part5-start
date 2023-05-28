@@ -12,13 +12,17 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
+import com.topic3.android.reddit.R
 import com.topic3.android.reddit.components.ImagePost
 import com.topic3.android.reddit.components.JoinedToast
 import com.topic3.android.reddit.components.TextPost
 import com.topic3.android.reddit.domain.model.PostModel
 import com.topic3.android.reddit.domain.model.PostType
 import com.topic3.android.reddit.viewmodel.MainViewModel
+import com.topic3.android.reddit.views.TrendingTopicView
 import java.util.Timer
 import kotlin.concurrent.schedule
 
@@ -57,6 +61,26 @@ fun HomeScreen(viewModel: MainViewModel) {
             JoinedToast(visible = isToastVisible)
         }
     }
+}
+
+@Composable
+private fun TrendingTopic(trendingTopic: TrendingTopicModel){
+    AndroidView({ context ->
+        TrendingTopicView(context).apply {
+            text = trendingTopic.text
+            image = trendingTopic.imageRes
+        }
+    })
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun TrendingTopicPreview(){
+    TrendingTopic(trendingTopic = TrendingTopicModel(
+        "Compose Animations",
+        R.drawable.jetpack_compose_animations
+    )
+    )
 }
 
 private data class HomeScreenItem(
