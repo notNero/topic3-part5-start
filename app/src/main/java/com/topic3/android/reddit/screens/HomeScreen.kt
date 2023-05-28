@@ -1,5 +1,6 @@
 package com.topic3.android.reddit.screens
 
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -57,3 +58,18 @@ fun HomeScreen(viewModel: MainViewModel) {
         }
     }
 }
+
+private data class HomeScreenItem(
+    val type : HomeScreenItemType,
+    val post: PostModel? = null
+)
+
+private enum class HomeScreenItemType {
+    TRENDING,
+    POST
+}
+
+private data class TrendingTopicModel(
+    val text: String,
+    @DrawableRes val imageRes: Int = 0
+)
